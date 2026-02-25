@@ -11,6 +11,7 @@ import (
 )
 
 type ReportData struct {
+	Name      string `json:"name"`
 	Time      string `json:"time"`
 	IP        string `json:"ip"`
 	Action    string `json:"action"`
@@ -33,7 +34,7 @@ func (r *ReportData) Save() {
 	w := csv.NewWriter(f)
 	defer w.Flush()
 
-	err = w.Write([]string{r.Time, r.IP, r.Action, r.Protocol, r.Data, r.SessionID})
+	err = w.Write([]string{r.Name, r.Time, r.IP, r.Action, r.Protocol, r.Data, r.SessionID})
 	if err != nil {
 		data := fmt.Sprintf("Write Error: %s", err.Error())
 		logger.Error(data)

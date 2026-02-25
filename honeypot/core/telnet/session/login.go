@@ -5,7 +5,7 @@ import (
 	"honeypot/core/logger"
 )
 
-func (s *Session) Login(config *config.Configs) error {
+func (s *Session) Login(configs *config.Configs) error {
 	var err error
 	s.User, err = s.WriteAndRead("Username: ")
 	if err != nil {
@@ -17,7 +17,7 @@ func (s *Session) Login(config *config.Configs) error {
 		return err
 	}
 
-	logger.Login(config, "telnet", s.IP, s.ID, s.User, s.Pass)
+	logger.Login(configs, "telnet", s.IP, s.ID, s.User, s.Pass)
 
 	return nil
 }

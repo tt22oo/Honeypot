@@ -9,6 +9,7 @@ import (
 )
 
 type ReportData struct {
+	Name      string `json:"name"`
 	Time      string `json:"time"`
 	IP        string `json:"ip"`
 	Action    string `json:"action"`

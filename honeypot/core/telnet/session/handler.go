@@ -5,10 +5,10 @@ import (
 	"honeypot/core/logger"
 )
 
-func (s *Session) Handler(config *config.Configs) {
+func (s *Session) Handler(configs *config.Configs) {
 	defer s.Conn.Close()
 
-	err := s.Login(config)
+	err := s.Login(configs)
 	if err != nil {
 		logger.Error("telnet", err.Error())
 		return
@@ -21,6 +21,6 @@ func (s *Session) Handler(config *config.Configs) {
 			return
 		}
 
-		logger.Cmd(config, "telnet", s.IP, s.ID, input)
+		logger.Cmd(configs, "telnet", s.IP, s.ID, input)
 	}
 }

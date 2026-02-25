@@ -4,10 +4,10 @@ import (
 	"honeypot/core/config"
 )
 
-func Init(config *config.Configs) {
-	if config.Telnet.Start {
-		for _, listen := range config.Telnet.Listens {
-			go Listen(config, listen)
+func Init(configs *config.Configs) {
+	if configs.Telnet.Start {
+		for _, listen := range configs.Telnet.Listens {
+			go Listen(configs, listen)
 		}
 	}
 }

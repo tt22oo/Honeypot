@@ -17,7 +17,7 @@ type Session struct {
 	Conn net.Conn
 }
 
-func New(config *config.Configs, conn net.Conn) (*Session, error) {
+func New(configs *config.Configs, conn net.Conn) (*Session, error) {
 	id, err := uuid.NewRandom()
 	if err != nil {
 		return nil, fmt.Errorf("UUID Generate Error: %s", err.Error())
@@ -28,7 +28,7 @@ func New(config *config.Configs, conn net.Conn) (*Session, error) {
 		IP:   conn.RemoteAddr().String(),
 		Conn: conn,
 	}
-	logger.Session(config, "telnet", session.IP, session.ID)
+	logger.Session(configs, "telnet", session.IP, session.ID)
 
 	return session, nil
 }

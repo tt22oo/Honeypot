@@ -18,6 +18,7 @@ const (
 func Session(configs *config.Configs, protocol, ip, id string) {
 	log.Printf("%s protocol=%s, ip=%s, session_id=%s)\r\n", TypeSession, protocol, ip, id)
 	r := &report.ReportData{
+		Name:      configs.Name,
 		Time:      time.Now().Format("2006-01-02 15:04:05"),
 		IP:        ip,
 		Action:    "new_session",
@@ -31,6 +32,7 @@ func Session(configs *config.Configs, protocol, ip, id string) {
 func Login(configs *config.Configs, protocol, ip, id, user, pass string) {
 	log.Printf("%s protocol=%s, username=%s, password=%s, session_id=%s)\r\n", TypeLogin, protocol, user, pass, id)
 	r := &report.ReportData{
+		Name:      configs.Name,
 		Time:      time.Now().Format("2006-01-02 15:04:05"),
 		IP:        ip,
 		Action:    "login",
@@ -44,6 +46,7 @@ func Login(configs *config.Configs, protocol, ip, id, user, pass string) {
 func Cmd(configs *config.Configs, protocol, ip, id, cmd string) {
 	log.Printf("%s protocol=%s, cmd=%s, session_id=%s)\r\n", TypeCMD, protocol, cmd, id)
 	r := &report.ReportData{
+		Name:      configs.Name,
 		Time:      time.Now().Format("2006-01-02 15:04:05"),
 		IP:        ip,
 		Action:    "cmd",

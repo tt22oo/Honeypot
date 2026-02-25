@@ -9,7 +9,7 @@ import (
 )
 
 // listen telnet
-func Listen(config *config.Configs, host string) {
+func Listen(configs *config.Configs, host string) {
 	ln, err := net.Listen("tcp", host)
 	if err != nil {
 		data := fmt.Sprintf("Listen Error: %s", err.Error())
@@ -26,13 +26,13 @@ func Listen(config *config.Configs, host string) {
 			continue
 		}
 
-		s, err := session.New(config, conn)
+		s, err := session.New(configs, conn)
 		if err != nil {
 			conn.Close()
 			logger.Error("telnet", err.Error())
 			continue
 		}
 
-		go s.Handler(config)
+		go s.Handler(configs)
 	}
 }
