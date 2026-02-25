@@ -1,0 +1,4 @@
+time, ip, action, protocol, data, session_id
+2026-02-25 15:11:55,127.0.0.1:59995,login,telnet,[A:,0a51fa50-23e8-47a9-9e94-edc3c45beeb4
+2026-02-25 15:11:56,127.0.0.1:59995,cmd,telnet,root,0a51fa50-23e8-47a9-9e94-edc3c45beeb4
+2026-02-25 15:12:47,127.0.0.1:59995,cmd,telnet,id,0a51fa50-23e8-47a9-9e94-edc3c45beeb4
