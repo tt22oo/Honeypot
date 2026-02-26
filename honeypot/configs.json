@@ -1,6 +1,6 @@
 {
     "name": "honeypot1",
-    "report_url": "http://127.0.0.1:8080/report",
+    "report_url": "http://127.0.0.1:8080/honeypot/report",
     "telnet": {
         "start": true,
         "listens": ["127.0.0.1:2323"]

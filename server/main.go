@@ -1,7 +1,25 @@
 package main
 
-import "server/core/web"
+import (
+	"fmt"
+	"server/core/config"
+	"server/core/database"
+	"server/core/logger"
+	"server/core/web"
+)
 
 func main() {
-	web.Start(":8080")
+	cfgs, err := config.Read()
+	if err != nil {
+		data := fmt.Sprintf("Config Error: %s", err.Error())
+		logger.Error(data)
+	}
+
+	client, err := database.Connect(cfgs)
+	if err != nil {
+		data := fmt.Sprintf("MongoDB Error: %s", err.Error())
+		logger.Error(data)
+	}
+
+	web.Start(cfgs, client)
 }

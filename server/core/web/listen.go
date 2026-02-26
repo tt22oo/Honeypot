@@ -2,18 +2,25 @@ package web
 
 import (
 	"fmt"
+	"server/core/config"
 	"server/core/handler"
 	"server/core/logger"
 
 	"github.com/labstack/echo/v4"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func Start(listen string) {
+func Start(cfgs *config.Configs, client *mongo.Client) {
 	e := echo.New()
 
-	e.POST("/report", handler.Report)
+	h := handler.Handler{
+		MongoClient: client,
+		Configs:     cfgs,
+	}
 
-	err := e.Start(listen)
+	e.POST("/honeypot/report", h.Report)
+
+	err := e.Start(cfgs.Listen)
 	if err != nil {
 		data := fmt.Sprintf("Web Server Error: %s", err.Error())
 		logger.Error(data)
