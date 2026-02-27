@@ -5,20 +5,26 @@ import (
 	"honeypot/core/config"
 	"honeypot/core/logger/report"
 	"log"
+	"os"
 	"time"
 )
 
-const (
-	TypeSession string = "\033[36m[SESSION]\033[0m"
-	TypeLogin   string = "\033[36m[LOGIN]\033[0m"
-	TypeCMD     string = "\033[34m[CMD]\033[0m"
-	TypeError   string = "\033[31m[ERROR]\033[0m"
+var (
+	infoLogger    = log.New(os.Stdout, "\033[36m[INFO]\033[0m ", log.LstdFlags)
+	sessionLogger = log.New(os.Stdout, "\033[36m[SESSION]\033[0m ", log.LstdFlags)
+	loginLogger   = log.New(os.Stdout, "\033[36m[LOGIN]\033[0m ", log.LstdFlags)
+	cmdLogger     = log.New(os.Stdout, "\033[34m[CMD]\033[0m ", log.LstdFlags)
+	errorLogger   = log.New(os.Stdout, "\033[31m[ERROR]\033[0m ", log.LstdFlags)
 )
 
-func Session(configs *config.Configs, protocol, ip, id string) {
-	log.Printf("%s protocol=%s, ip=%s, session_id=%s)\r\n", TypeSession, protocol, ip, id)
+func Info(data string) {
+	infoLogger.Print(data)
+}
+
+func Session(cfgs *config.Configs, protocol, ip, id string) {
+	sessionLogger.Printf("protocol=%s, ip=%s, session_id=%s\r\n", protocol, ip, id)
 	r := &report.ReportData{
-		Name:      configs.Name,
+		Name:      cfgs.Name,
 		Time:      time.Now().Format("2006-01-02 15:04:05"),
 		IP:        ip,
 		Action:    "new_session",
@@ -26,13 +32,13 @@ func Session(configs *config.Configs, protocol, ip, id string) {
 		Data:      "",
 		SessionID: id,
 	}
-	r.Report(configs)
+	r.Report(cfgs)
 }
 
-func Login(configs *config.Configs, protocol, ip, id, user, pass string) {
-	log.Printf("%s protocol=%s, username=%s, password=%s, session_id=%s)\r\n", TypeLogin, protocol, user, pass, id)
+func Login(cfgs *config.Configs, protocol, ip, id, user, pass string) {
+	loginLogger.Printf("protocol=%s, username=%s, password=%s, session_id=%s\r\n", protocol, user, pass, id)
 	r := &report.ReportData{
-		Name:      configs.Name,
+		Name:      cfgs.Name,
 		Time:      time.Now().Format("2006-01-02 15:04:05"),
 		IP:        ip,
 		Action:    "login",
@@ -40,13 +46,13 @@ func Login(configs *config.Configs, protocol, ip, id, user, pass string) {
 		Data:      fmt.Sprintf("%s:%s", user, pass),
 		SessionID: id,
 	}
-	r.Report(configs)
+	r.Report(cfgs)
 }
 
-func Cmd(configs *config.Configs, protocol, ip, id, cmd string) {
-	log.Printf("%s protocol=%s, cmd=%s, session_id=%s)\r\n", TypeCMD, protocol, cmd, id)
+func Cmd(cfgs *config.Configs, protocol, ip, id, cmd string) {
+	cmdLogger.Printf("protocol=%s, cmd=%s, session_id=%s\r\n", protocol, cmd, id)
 	r := &report.ReportData{
-		Name:      configs.Name,
+		Name:      cfgs.Name,
 		Time:      time.Now().Format("2006-01-02 15:04:05"),
 		IP:        ip,
 		Action:    "cmd",
@@ -54,10 +60,10 @@ func Cmd(configs *config.Configs, protocol, ip, id, cmd string) {
 		Data:      cmd,
 		SessionID: id,
 	}
-	r.Report(configs)
+	r.Report(cfgs)
 }
 
 // print error log
 func Error(protocol, data string) {
-	log.Printf("%s protocol=%s, %s\r\n", TypeError, protocol, data)
+	errorLogger.Printf("protocol=%s, %s\r\n", protocol, data)
 }

@@ -13,12 +13,14 @@ func main() {
 	if err != nil {
 		data := fmt.Sprintf("Config Error: %s", err.Error())
 		logger.Error(data)
+		return
 	}
 
 	client, err := database.Connect(cfgs)
 	if err != nil {
 		data := fmt.Sprintf("MongoDB Error: %s", err.Error())
 		logger.Error(data)
+		return
 	}
 
 	web.Start(cfgs, client)

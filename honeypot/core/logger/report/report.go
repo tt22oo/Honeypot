@@ -3,9 +3,11 @@ package report
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"honeypot/core/config"
 	"log"
 	"net/http"
+	"os"
 )
 
 type ReportData struct {
@@ -18,17 +20,36 @@ type ReportData struct {
 	Data      string `json:"data"`
 }
 
-func (r *ReportData) Report(configs *config.Configs) {
+type Response struct {
+	Stat    string `json:"stat"`
+	Message string `json:"message"`
+}
+
+var errorLogger = log.New(os.Stdout, "\033[31m[ERROR]\033[0m ", log.LstdFlags)
+
+func (r *ReportData) Report(cfgs *config.Configs) {
 	body, err := json.Marshal(r)
 	if err != nil {
-		log.Printf("\033[31m[ERROR]\033[0m JSON Marshal Error: %s", err.Error())
+		errorLogger.Printf("JSON Marshal Error: %s", err.Error())
 		return
 	}
 
-	resp, err := http.Post(configs.ReportURL, "application/json", bytes.NewBuffer(body))
+	url := fmt.Sprintf("%s?key=%s", cfgs.ReportURL, cfgs.Key)
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
 	if err != nil {
-		log.Printf("\033[31m[ERROR]\033[0m Report Error: %s", err.Error())
+		errorLogger.Printf("Report Error: %s", err.Error())
 		return
 	}
 	defer resp.Body.Close()
+
+	var rp Response
+	err = json.NewDecoder(resp.Body).Decode(&rp)
+	if err != nil {
+		errorLogger.Printf("JSON Decode Error: %s", err.Error())
+		return
+	}
+
+	if rp.Stat != "success" {
+		errorLogger.Printf("Report Error: %s", rp.Message)
+	}
 }

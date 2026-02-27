@@ -14,7 +14,7 @@ type Report struct {
 	IP        string `json:"ip" bson:"ip"`
 	Action    string `json:"action" bson:"action"`
 	Protocol  string `json:"protocol" bson:"protocol"`
-	SessionID string `json:"session_id" bson:"seession_id"`
+	SessionID string `json:"session_id" bson:"session_id"`
 	Data      string `json:"data" bson:"data"`
 }
 

@@ -1,8 +1,14 @@
 {
     "name": "honeypot1",
+    "key": "test@1234",
     "report_url": "http://127.0.0.1:8080/honeypot/report",
     "telnet": {
         "start": true,
-        "listens": ["127.0.0.1:2323"]
+        "addrs": ["0.0.0.0:2323"]
+    },
+    "ssh": {
+        "start": true,
+        "version": "SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.2",
+        "addrs": ["0.0.0.0:2222"]
     }
 }

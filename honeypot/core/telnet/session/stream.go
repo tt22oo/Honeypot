@@ -2,6 +2,7 @@ package session
 
 import "fmt"
 
+// test
 func (s *Session) WriteAndRead(data string) (string, error) {
 	// write
 	_, err := s.Conn.Write([]byte(data))

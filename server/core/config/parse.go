@@ -7,16 +7,17 @@ import (
 
 type Configs struct {
 	Listen  string `json:"listen"`
+	Key     string `json:"key"`
 	MongoDB string `json:"mongo_db"`
 	DBName  string `json:"database_name"`
 }
 
 func parseConfigs(file *os.File) (*Configs, error) {
-	var configs Configs
-	err := json.NewDecoder(file).Decode(&configs)
+	var cfgs Configs
+	err := json.NewDecoder(file).Decode(&cfgs)
 	if err != nil {
 		return nil, err
 	}
 
-	return &configs, nil
+	return &cfgs, nil
 }

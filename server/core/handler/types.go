@@ -15,3 +15,8 @@ type Handler struct {
 	Configs     *config.Configs
 	MongoClient *mongo.Client
 }
+
+const (
+	statSuccess string = "success"
+	statError   string = "error"
+)
