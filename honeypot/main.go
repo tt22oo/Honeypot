@@ -12,7 +12,7 @@ func main() {
 	cfgs, err := config.Read()
 	if err != nil {
 		data := fmt.Sprintf("Config Error: %s", err.Error())
-		logger.Error("telnet", data)
+		logger.Error("", data)
 		return
 	}
 
@@ -21,3 +21,4 @@ func main() {
 
 	select {}
 }
+
