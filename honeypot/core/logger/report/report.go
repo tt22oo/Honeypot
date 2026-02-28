@@ -3,11 +3,11 @@ package report
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"honeypot/core/config"
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 type ReportData struct {
@@ -34,8 +34,18 @@ func (r *ReportData) Report(cfgs *config.Configs) {
 		return
 	}
 
-	url := fmt.Sprintf("%s?key=%s", cfgs.ReportURL, cfgs.Key)
-	resp, err := http.Post(url, "application/json", bytes.NewBuffer(body))
+	req, err := http.NewRequest("POST", cfgs.ReportURL, bytes.NewBuffer(body))
+	if err != nil {
+		errorLogger.Printf("New Request Error: %s", err.Error())
+		return
+	}
+	req.Header.Set("content-type", "application/json")
+	req.Header.Set("key", cfgs.Key)
+
+	client := &http.Client{
+		Timeout: 5 * time.Second,
+	}
+	resp, err := client.Do(req)
 	if err != nil {
 		errorLogger.Printf("Report Error: %s", err.Error())
 		return

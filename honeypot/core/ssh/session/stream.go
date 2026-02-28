@@ -2,6 +2,7 @@ package session
 
 import (
 	"fmt"
+
 	"github.com/gliderlabs/ssh"
 )
 

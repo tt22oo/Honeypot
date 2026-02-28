@@ -19,6 +19,7 @@ func Start(cfgs *config.Configs, client *mongo.Client) {
 	}
 
 	e.POST("/honeypot/report", h.Report)
+	e.GET("/honeypot/report/fetch", h.FetchReports)
 
 	err := e.Start(cfgs.Listen)
 	if err != nil {

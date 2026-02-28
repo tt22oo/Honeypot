@@ -8,7 +8,7 @@ import (
 
 type Response struct {
 	Stat    string `json:"stat"`
-	Message string `json:"message"`
+	Message any    `json:"message"`
 }
 
 type Handler struct {

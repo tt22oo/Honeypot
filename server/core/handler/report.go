@@ -10,7 +10,7 @@ import (
 )
 
 func (h *Handler) Report(c echo.Context) error {
-	if h.Configs.Key != c.QueryParam("key") {
+	if h.Configs.Key != c.Request().Header.Get("key") {
 		return c.JSON(401, Response{
 			Stat:    statError,
 			Message: "invalid key",
