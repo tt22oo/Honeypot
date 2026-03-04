@@ -7,7 +7,7 @@ It collects attacker's connection data and inputs, sends them to the server, and
 * **server/** : server for log collection
 
 ## Settings
-**honeypot/configs.json:**
+**honeypot/config/config.json:**
 ```json
 {
     "name": "honeypot1",
