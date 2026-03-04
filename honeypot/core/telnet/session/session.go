@@ -17,7 +17,7 @@ type Session struct {
 	Conn net.Conn
 }
 
-func New(cfgs *config.Configs, conn net.Conn) (*Session, error) {
+func New(cfgs *config.Config, conn net.Conn) (*Session, error) {
 	id, err := uuid.NewRandom()
 	if err != nil {
 		return nil, fmt.Errorf("UUID Generate Error: %s", err.Error())
