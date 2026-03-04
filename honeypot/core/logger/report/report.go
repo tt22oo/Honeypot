@@ -27,7 +27,7 @@ type Response struct {
 
 var errorLogger = log.New(os.Stdout, "\033[31m[ERROR]\033[0m ", log.LstdFlags)
 
-func (r *ReportData) Report(cfgs *config.Configs) {
+func (r *ReportData) Report(cfgs *config.Config) {
 	body, err := json.Marshal(r)
 	if err != nil {
 		errorLogger.Printf("JSON Marshal Error: %s", err.Error())
