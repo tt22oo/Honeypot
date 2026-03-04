@@ -8,7 +8,7 @@ import (
 )
 
 type Config struct {
-	Configs *config.Configs
+	Config *config.Config
 }
 
 func NewID() (string, error) {
