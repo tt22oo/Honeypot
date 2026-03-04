@@ -9,7 +9,7 @@ import (
 )
 
 // listen telnet honeypot
-func Listen(cfgs *config.Configs, addr string) {
+func Listen(cfgs *config.Config, addr string) {
 	ln, err := net.Listen("tcp", addr)
 	if err != nil {
 		data := fmt.Sprintf("Listen Error: %s", err.Error())
@@ -17,8 +17,8 @@ func Listen(cfgs *config.Configs, addr string) {
 		return
 	}
 	defer ln.Close()
-  
-  logger.Info(fmt.Sprintf("Telnet Honeypot Listening on %s", addr))
+
+	logger.Info(fmt.Sprintf("Telnet Honeypot Listening on %s", addr))
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
