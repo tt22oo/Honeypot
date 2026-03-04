@@ -64,3 +64,66 @@ It collects attacker's connection data and inputs, sends them to the server, and
 * `key`: it's using to authenticate incoming reports.
 * `mongo_db`: it's mongodb connection uri.
 * `database_name`: it's name of the mongodb database using to store reports.
+
+## Server API
+
+## Report Attack Log
+### Request
+
+```http
+POST /honeypot/report HTTP/1.1
+Content-Type: application/json
+Key: test@1234
+```
+
+### Body
+
+```json
+{
+  "name": "honeypot-name",
+  "time": "2026-03-04T10:10:10Z",
+  "ip": "1.2.3.4",
+  "action": "command",
+  "protocol": "ssh",
+  "session_id": "session-1234",
+  "data": "ls -la"
+}
+```
+
+### Response
+
+```json
+{
+  "stat": "success",
+  "message": "added"
+}
+```
+
+## Fetch Logs
+### Request
+
+```http
+GET /honeypot/report/fetch HTTP/1.1
+Key: test@1234
+```
+
+### Response
+
+```json
+{
+  "stat": "success",
+  "message": [
+    {
+      "name": "honeypot-name",
+      "time": "2026-03-04T10:10:10Z",
+      "ip": "1.2.3.4",
+      "action": "command",
+      "protocol": "ssh",
+      "session_id": "session-1234",
+      "data": "ls -la"
+    }
+  ]
+}
+```
+
+
