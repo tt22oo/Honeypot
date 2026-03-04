@@ -16,16 +16,26 @@ type Telnet struct {
 	Addrs []string `json:"addrs"`
 }
 
-type Configs struct {
-	Name      string `json:"name"`
-	Key       string `json:"key"`
-	ReportURL string `json:"report_url"`
-	Telnet    Telnet `json:"telnet"`
-	SSH       SSH    `json:"ssh"`
+type ShellConfig struct {
+	HomePath    string `json:"home_directory"`
+	DirPath     string `json:"directory_path"`
+	ProcessPath string `json:"process_path"`
+	CpuinfoPath string `json:"cpuinfo_path"`
+	MeminfoPath string `json:"meminfo_path"`
+	VersionPath string `json:"version_path"`
 }
 
-func parseConfigs(file *os.File) (*Configs, error) {
-	var cfgs Configs
+type Config struct {
+	Name      string      `json:"name"`
+	Key       string      `json:"key"`
+	ReportURL string      `json:"report_url"`
+	Telnet    Telnet      `json:"telnet"`
+	SSH       SSH         `json:"ssh"`
+	Shell     ShellConfig `json:"shell"`
+}
+
+func parseConfigs(file *os.File) (*Config, error) {
+	var cfgs Config
 	err := json.NewDecoder(file).Decode(&cfgs)
 	if err != nil {
 		return nil, err
