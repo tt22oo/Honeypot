@@ -1,0 +1,13 @@
+{
+    "root": {
+        "name": "root",
+        "type": "directory",
+        "children": {
+            "test1": {
+                "name": "test1",
+                "type": "file",
+                "data": "data1234!"
+            }
+        }
+    }
+}

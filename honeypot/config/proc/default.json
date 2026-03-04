@@ -1,0 +1,7 @@
+{
+    "1": {
+        "user": "test",
+        "cmd": "test",
+        "args": ["arg1", "arg2"]
+    }
+}
