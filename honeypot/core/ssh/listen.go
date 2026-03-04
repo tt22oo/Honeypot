@@ -10,9 +10,9 @@ import (
 )
 
 // listen ssh honeypot
-func Listen(cfgs *config.Configs, addr string) {
+func Listen(cfgs *config.Config, addr string) {
 	c := &session.Config{
-		Configs: cfgs,
+		Config: cfgs,
 	}
 
 	server := &ssh.Server{
