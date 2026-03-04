@@ -5,7 +5,7 @@ import (
 	"honeypot/core/logger"
 )
 
-func (s *Session) Login(cfgs *config.Configs) error {
+func (s *Session) Login(cfgs *config.Config) error {
 	var err error
 	s.User, err = s.WriteAndRead("Username: ")
 	if err != nil {
