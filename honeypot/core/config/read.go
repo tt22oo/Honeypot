@@ -4,9 +4,9 @@ import (
 	"os"
 )
 
-const configPATH string = "configs.json"
+const configPATH string = "config/config.json"
 
-func Read() (*Configs, error) {
+func Read() (*Config, error) {
 	file, err := os.Open(configPATH)
 	if err != nil {
 		return nil, err
