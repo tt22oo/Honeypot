@@ -21,7 +21,7 @@ func Info(data string) {
 	infoLogger.Print(data)
 }
 
-func Session(cfgs *config.Configs, protocol, ip, id string) {
+func Session(cfgs *config.Config, protocol, ip, id string) {
 	sessionLogger.Printf("protocol=%s, ip=%s, session_id=%s\r\n", protocol, ip, id)
 	r := &report.ReportData{
 		Name:      cfgs.Name,
@@ -35,7 +35,7 @@ func Session(cfgs *config.Configs, protocol, ip, id string) {
 	r.Report(cfgs)
 }
 
-func Login(cfgs *config.Configs, protocol, ip, id, user, pass string) {
+func Login(cfgs *config.Config, protocol, ip, id, user, pass string) {
 	loginLogger.Printf("protocol=%s, username=%s, password=%s, session_id=%s\r\n", protocol, user, pass, id)
 	r := &report.ReportData{
 		Name:      cfgs.Name,
@@ -49,7 +49,7 @@ func Login(cfgs *config.Configs, protocol, ip, id, user, pass string) {
 	r.Report(cfgs)
 }
 
-func Cmd(cfgs *config.Configs, protocol, ip, id, cmd string) {
+func Cmd(cfgs *config.Config, protocol, ip, id, cmd string) {
 	cmdLogger.Printf("protocol=%s, cmd=%s, session_id=%s\r\n", protocol, cmd, id)
 	r := &report.ReportData{
 		Name:      cfgs.Name,
